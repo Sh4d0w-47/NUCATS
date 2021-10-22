@@ -468,10 +468,18 @@ async def nucats(ctx):
       dogjson = await request.json() 
    embed = discord.Embed(title="OMG something even better! a Doggo!!!", color=discord.Color.purple()) 
    embed.set_image(url=dogjson['link']) 
-   await ctx.send(embed=embed) 
+   await ctx.send(embed=embed)
 
+@client.command()
+async def pikachu(ctx):
+  async with aiohttp.ClientSession() as session:
+    request = await session.get('https://some-random-api.ml/img/pikachu')
+    pikachujson = await request.json()
+  embed = discord.Embed(title="A Pikachu for you!", color=discord.Color.purple())
+  embed.set_image(url=pikachujson['link'])
+  await ctx.send(embed=embed)
 
-async def log(value):
+    async def log(value):
   l = client.get_channel(872913487247052890)
   print(value)
   await l.send(str(value))
