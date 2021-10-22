@@ -479,7 +479,7 @@ async def pikachu(ctx):
   embed.set_image(url=pikachujson['link'])
   await ctx.send(embed=embed)
 
-    async def log(value):
+async def log(value):
   l = client.get_channel(872913487247052890)
   print(value)
   await l.send(str(value))
