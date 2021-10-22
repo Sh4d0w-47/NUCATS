@@ -186,7 +186,7 @@ async def auth(ctx):
     await log(str(ctx.author) + " has begun auth process")
     await log(str(ctx.author) + " Auth Step - Username input (1/7)")
     try:
-      await ctx.author.send('Thank You for starting the NUCATS authentification Process\nWe cant wait for you to join us on the server!!!! :)') 
+      await ctx.author.send('Thank You for starting the NUCATS authentication Process\nWe cant wait for you to join us on the server!!!! :)')
       await ctx.author.send('\nStep 1/6 Please enter your uni username you use to log in with I.E. B8028969 or C1023937')
     except Exception as e: 
       try:
@@ -226,7 +226,7 @@ async def auth(ctx):
     await log(str(ctx.author)+ " Auth Step - Verfication code sent to email (3/7)")
     # generate code
     authCode = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
-    await ctx.author.send('Step 2/6 We have emailed you a verfication code!!\nplease copy and paste it below\nThis email may be in your junk mail')
+    await ctx.author.send('Step 2/6 We have emailed you a verification code!!\nplease copy and paste it below\nThis email may be in your junk mail')
     # sends email
     sent_from = "nucats.auth.no.reply@gmail.com"
     to = [msg.content+'@ncl.ac.uk']
@@ -318,7 +318,7 @@ All Channels will have pinned messages explaining what they are there for and ho
      # step 5 Nickname
     await log(str(ctx.author) + " Auth Step - Name and Prounoun (6/7)")
     await ctx.author.send('**Step 4/6 As part of the rules of the Nucats server we require everyone Discord name to be their actual name**')
-    await ctx.author.send('Please enter your prefered name below. Please note giving a bad name will result in being force to go back through auth soz')
+    await ctx.author.send('Please enter your preferred name below. Please note giving a bad name will result in being force to go back through auth soz')
     while(True):
       msg = await client.wait_for('message')
       if(ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel)):
@@ -327,7 +327,7 @@ All Channels will have pinned messages explaining what they are there for and ho
         member = guild.get_member(msg.author.id)
         print(member)
         if(len(msg.content) > 14):
-          await ctx.author.send('Nickname tooo long')
+          await ctx.author.send('Nickname too long')
         else:
           await member.edit(nick=msg.content)
           break
@@ -337,7 +337,7 @@ All Channels will have pinned messages explaining what they are there for and ho
       1 - he/him
       2 - she/her
       3 - they/them
-    IF your Pronoun is not here please messager committee and we will sort it :)''')
+    IF your Pronoun is not here please message the committee and we will sort it :)''')
     while(True):
       msg = await client.wait_for('message')
       if(ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel)):
