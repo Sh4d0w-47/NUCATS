@@ -106,6 +106,7 @@ async def complete(ctx):
       return 0
   await ctx.channel.send(f'{winner} has not completed the challenge', delete_after=30)
   return 0
+
 @client.command()    
 async def complete2(ctx,arg1):
   winner = arg1
@@ -185,7 +186,7 @@ async def auth(ctx):
     await log(str(ctx.author) + " has begun auth process")
     await log(str(ctx.author) + " Auth Step - Username input (1/7)")
     try:
-      await ctx.author.send('Thank You for starting the NUCATS authentification Process\nWe cant wait for you to join us on the server!!!! :)') 
+      await ctx.author.send('Thank You for starting the NUCATS authentication Process\nWe cant wait for you to join us on the server!!!! :)')
       await ctx.author.send('\nStep 1/6 Please enter your uni username you use to log in with I.E. B8028969 or C1023937')
     except Exception as e: 
       try:
@@ -225,7 +226,7 @@ async def auth(ctx):
     await log(str(ctx.author)+ " Auth Step - Verfication code sent to email (3/7)")
     # generate code
     authCode = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
-    await ctx.author.send('Step 2/6 We have emailed you a verfication code!!\nplease copy and paste it below\nThis email may be in your junk mail')
+    await ctx.author.send('Step 2/6 We have emailed you a verification code!!\nplease copy and paste it below\nThis email may be in your junk mail')
     # sends email
     sent_from = "nucats.auth.no.reply@gmail.com"
     to = [msg.content+'@ncl.ac.uk']
@@ -317,7 +318,7 @@ All Channels will have pinned messages explaining what they are there for and ho
      # step 5 Nickname
     await log(str(ctx.author) + " Auth Step - Name and Prounoun (6/7)")
     await ctx.author.send('**Step 4/6 As part of the rules of the Nucats server we require everyone Discord name to be their actual name**')
-    await ctx.author.send('Please enter your prefered name below. Please note giving a bad name will result in being force to go back through auth soz')
+    await ctx.author.send('Please enter your preferred name below. Please note giving a bad name will result in being force to go back through auth soz')
     while(True):
       msg = await client.wait_for('message')
       if(ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel)):
@@ -326,17 +327,17 @@ All Channels will have pinned messages explaining what they are there for and ho
         member = guild.get_member(msg.author.id)
         print(member)
         if(len(msg.content) > 14):
-          await ctx.author.send('Nickname tooo long')
+          await ctx.author.send('Nickname too long')
         else:
           await member.edit(nick=msg.content)
           break
     await log(str(ctx.author) + " Changed Nickname to " + msg.content)
     # step 6 Pronoun
-    await ctx.author.send('''Step 5/6 Please select your prefered pronoun by entering the corresponding number
+    await ctx.author.send('''Step 5/6 Please select your preferred pronoun by entering the corresponding number
       1 - he/him
       2 - she/her
       3 - they/them
-    IF your Pronoun is not here please messager committee and we will sort it :)''')
+    IF your Pronoun is not here please message the committee and we will sort it :)''')
     while(True):
       msg = await client.wait_for('message')
       if(ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel)):
@@ -420,7 +421,7 @@ All Channels will have pinned messages explaining what they are there for and ho
     await member.remove_roles(var)
     await log(str(ctx.author) + " Auth Complete")
     await ctx.author.send('Great!!! You are now authed and have full access to the server :D')
-    await ctx.author.send('Cant wait to speak to you soon!!! and hopefully see you at some of our events!!!\n Cheers Jonno')
+    await ctx.author.send('Cant wait to speak to you soon!!! and hopefully see you at some of our events!!!\nCheers Jonno')
     c = client.get_channel(752547001794822255)
     if(ctx.message.channel == 757937625280806923):
       await c.send(f"{ctx.message.author.mention}👋 Welcome to the NUCATS Server!!! \nCheck the updates channel for the latest news on our even\nAny questions feel free to reach out to committee")
@@ -468,8 +469,16 @@ async def nucats(ctx):
       dogjson = await request.json() 
    embed = discord.Embed(title="OMG something even better! a Doggo!!!", color=discord.Color.purple()) 
    embed.set_image(url=dogjson['link']) 
-   await ctx.send(embed=embed) 
+   await ctx.send(embed=embed)
 
+@client.command()
+async def pikachu(ctx):
+  async with aiohttp.ClientSession() as session:
+    request = await session.get('https://some-random-api.ml/img/pikachu')
+    pikachujson = await request.json()
+  embed = discord.Embed(title="A Pikachu for you!", color=discord.Color.purple())
+  embed.set_image(url=pikachujson['link'])
+  await ctx.send(embed=embed)
 
 async def log(value):
   l = client.get_channel(872913487247052890)
