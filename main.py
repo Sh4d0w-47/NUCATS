@@ -106,6 +106,7 @@ async def complete(ctx):
       return 0
   await ctx.channel.send(f'{winner} has not completed the challenge', delete_after=30)
   return 0
+
 @client.command()    
 async def complete2(ctx,arg1):
   winner = arg1
@@ -332,7 +333,7 @@ All Channels will have pinned messages explaining what they are there for and ho
           break
     await log(str(ctx.author) + " Changed Nickname to " + msg.content)
     # step 6 Pronoun
-    await ctx.author.send('''Step 5/6 Please select your prefered pronoun by entering the corresponding number
+    await ctx.author.send('''Step 5/6 Please select your preferred pronoun by entering the corresponding number
       1 - he/him
       2 - she/her
       3 - they/them
@@ -420,7 +421,7 @@ All Channels will have pinned messages explaining what they are there for and ho
     await member.remove_roles(var)
     await log(str(ctx.author) + " Auth Complete")
     await ctx.author.send('Great!!! You are now authed and have full access to the server :D')
-    await ctx.author.send('Cant wait to speak to you soon!!! and hopefully see you at some of our events!!!\n Cheers Jonno')
+    await ctx.author.send('Cant wait to speak to you soon!!! and hopefully see you at some of our events!!!\nCheers Jonno')
     c = client.get_channel(752547001794822255)
     if(ctx.message.channel == 757937625280806923):
       await c.send(f"{ctx.message.author.mention}👋 Welcome to the NUCATS Server!!! \nCheck the updates channel for the latest news on our even\nAny questions feel free to reach out to committee")
