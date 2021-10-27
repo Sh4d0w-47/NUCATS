@@ -504,6 +504,13 @@ async def nucats(ctx):
     await ctx.send(embed=embed)
 
 
+@client.command()
+async def roll(ctx):
+    """Rolls a dice in NdN format."""
+    result = ', '.join(str(random.randint(1, 6)) for r in range(6))
+    await ctx.send(result)
+
+
 async def log(value):
     l = client.get_channel(872913487247052890)
     print(value)
