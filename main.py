@@ -319,7 +319,7 @@ inappropriate. Your name should be the name you go by hence (hopefully) should n
 Threats to other users of DDoS, Death, DoX, abuse, and other malicious threats are absolutely prohibited and disallowed.
 
 9. Follow the NCL student Charter
-You can find it here: https://www.ncl.ac.uk/media/wwwnclacuk/pre-arrival/files/Student%20Charter.pdf
+You can find it here: https://www.ncl.ac.uk/student-progress/policies/student-charter/
 
 10. No Collusion on Uni Work
 
