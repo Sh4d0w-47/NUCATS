@@ -134,12 +134,12 @@ async def listComplete(ctx):
     for k in response:
         out = False
         winner = str(k)
-        winnerUsername = db[winner]
-        response = requests.get(f'https://www.codewars.com/api/v1/users/{winnerUsername[0]}/code-challenges/completed')
-        resObject = response.json()
+        winner_username = db[winner]
+        response = requests.get(f'https://www.codewars.com/api/v1/users/{winner_username[0]}/code-challenges/completed')
+        res_object = response.json()
         try:
-            for obj in resObject["data"]:
-                if (str(obj["id"]) == str(db["code"][0])):
+            for obj in res_object["data"]:
+                if str(obj["id"]) == str(db["code"][0]):
                     await ctx.channel.send(f'{winner} has completed the challenge ')
                     out = True
             if not out:
@@ -151,18 +151,18 @@ async def listComplete(ctx):
 @client.command()
 async def listStat(ctx):
     response = db.keys()
-    complete = 0;
-    total = 0;
+    complete = 0
+    total = 0
     for k in response:
         total = total + 1
         out = False
         winner = str(k)
-        winnerUsername = db[winner]
-        response = requests.get(f'https://www.codewars.com/api/v1/users/{winnerUsername[0]}/code-challenges/completed')
-        resObject = response.json()
+        winner_username = db[winner]
+        response = requests.get(f'https://www.codewars.com/api/v1/users/{winner_username[0]}/code-challenges/completed')
+        res_object = response.json()
         try:
-            for obj in resObject["data"]:
-                if (str(obj["id"]) == str(db["code"][0])):
+            for obj in res_object["data"]:
+                if str(obj["id"]) == str(db["code"][0]):
                     complete = complete + 1
         except Exception:
             total = total - 1
@@ -183,7 +183,7 @@ async def ran(ctx, arg1, arg2):
 @client.command()
 async def flip(ctx):
     await ctx.channel.send(f"{ctx.message.author.mention}🪙 throws a coin in the a air and it lands on....")
-    if (randint(0, 2) == 1):
+    if randint(0, 2) == 1:
         await ctx.channel.send("HEADS")
     else:
         await ctx.channel.send("TAILS")
@@ -197,17 +197,20 @@ async def auth(ctx):
     await log(str(ctx.author) + " Auth Step - Username input (1/7)")
     try:
         await ctx.author.send(
-            'Thank You for starting the NUCATS authentification Process\nWe cant wait for you to join us on the server!!!! :)')
+            'Thank You for starting the NUCATS authentication Process\nWe cant wait for you to join us on the '
+            'server!!!! :)')
         await ctx.author.send(
             '\nStep 1/6 Please enter your uni username you use to log in with I.E. B8028969 or C1023937')
     except Exception as e:
         try:
             c = client.get_channel(752536544765542431)
             await c.send(
-                f"{ctx.message.author.mention}  your privacy settings are preventing the bot messaging you \n Error please contact a Server admin")
+                f"{ctx.message.author.mention}  your privacy settings are preventing the bot messaging you \n Error "
+                f"please contact a Server admin")
             c = client.get_channel(878233107956924426)
             await c.send(
-                f"{ctx.message.author.mention}  your privacy settings are preventing the bot messaging you \n Error please contact a Server admin")
+                f"{ctx.message.author.mention}  your privacy settings are preventing the bot messaging you \n Error "
+                f"please contact a Server admin")
         except Exception as f:
             await log(str(ctx.author) + " has Privacy setting issue")
     await log(str(ctx.author) + " has begun auth process")
@@ -215,13 +218,13 @@ async def auth(ctx):
     # Step 1 - validate username
     # Regex check
     async def check(m):
-        if (len(m) != 8):
+        if len(m) != 8:
             print(m)
             await log(str(ctx.author) + " Auth Step - Username Regex check (2/7)")
             await log(str(ctx.author) + " Auth Step - Fail Username does not match len")
             return False
         regex = '^([A-C|a-c])\d{7}$'
-        if (re.match(regex, m)):
+        if re.match(regex, m):
             await log(str(ctx.author) + " Auth Step - Success Valid Username")
             return True
         else:
@@ -229,19 +232,20 @@ async def auth(ctx):
             return False
 
     # loops till valid username given
-    while (True):
+    while True:
         msg = await client.wait_for('message')
-        if (ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel)):
-            if (await check(msg.content)):
+        if ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel):
+            if await check(msg.content):
                 break
             else:
                 await ctx.author.send('Invalid Username please check it is correct')
     # Step 2 - Send validation code
-    await log(str(ctx.author) + " Auth Step - Verfication code sent to email (3/7)")
+    await log(str(ctx.author) + " Auth Step - Verification code sent to email (3/7)")
     # generate code
     authCode = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
     await ctx.author.send(
-        'Step 2/6 We have emailed you a verfication code!!\nplease copy and paste it below\nThis email may be in your junk mail')
+        'Step 2/6 We have emailed you a verification code!!\nplease copy and paste it below\nThis email may be in your '
+        'junk mail')
     # sends email
     sent_from = "nucats.auth.no.reply@gmail.com"
     to = [msg.content + '@ncl.ac.uk']
@@ -285,10 +289,10 @@ async def auth(ctx):
             print(e)
     # step 3 check auth code
     await log(str(ctx.author) + " Auth Step - await valid code (4/7)")
-    while (True):
+    while True:
         msg = await client.wait_for('message')
-        if (ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel)):
-            if (msg.content == authCode):
+        if ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel):
+            if msg.content == authCode:
                 break
             else:
                 await ctx.author.send('Invalid Verification Code')
@@ -308,8 +312,8 @@ Don't send a lot of small messages right after each other. Do not disrupt chat b
 4. No pornographic/adult/other NSFW material
 This is a community server and not meant to share this kind of material.
 
-5. No offensive names and profile pictures
-You will be asked to change your name or picture if the staff deems them inappropriate. Your name should be the name you go by hence (hopefully) should no be offensive.
+5. No offensive names and profile pictures You will be asked to change your name or picture if the staff deems them 
+inappropriate. Your name should be the name you go by hence (hopefully) should no be offensive. 
 
 8. Direct & Indirect Threats
 Threats to other users of DDoS, Death, DoX, abuse, and other malicious threats are absolutely prohibited and disallowed.
@@ -321,56 +325,59 @@ You can find it here: https://www.ncl.ac.uk/media/wwwnclacuk/pre-arrival/files/S
 
 The Committee will Mute/Kick/Ban per discretion. If you feel mistreated dm an Admin and we will resolve the issue.
 
-All Channels will have pinned messages explaining what they are there for and how everything works. If you don't understand something, feel free to ask!""")
+All Channels will have pinned messages explaining what they are there for and how everything works. If you don't 
+understand something, feel free to ask!""")
     await ctx.author.send('**Please read the rule and type agree to agree with them**')
-    while (True):
+    while True:
         msg = await client.wait_for('message')
-        if (ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel)):
-            if (msg.content.lower() == 'agree'):
+        if ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel):
+            if msg.content.lower() == 'agree':
                 break
             else:
                 await ctx.author.send('Please read the rule and type agree to agree with them')
     # step 5 Nickname
-    await log(str(ctx.author) + " Auth Step - Name and Prounoun (6/7)")
+    await log(str(ctx.author) + " Auth Step - Name and Pronoun (6/7)")
     await ctx.author.send(
-        '**Step 4/6 As part of the rules of the Nucats server we require everyone Discord name to be their actual name**')
+        '**Step 4/6 As part of the rules of the Nucats server we require everyone Discord name to be their actual '
+        'name**')
     await ctx.author.send(
-        'Please enter your prefered name below. Please note giving a bad name will result in being force to go back through auth soz')
-    while (True):
+        'Please enter your preferred name below. Please note giving a bad name will result in being force to go back '
+        'through auth soz')
+    while True:
         msg = await client.wait_for('message')
-        if (ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel)):
+        if ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel):
             guild = client.get_guild(752532623678505011)
             print(guild)
             member = guild.get_member(msg.author.id)
             print(member)
-            if (len(msg.content) > 14):
-                await ctx.author.send('Nickname tooo long')
+            if len(msg.content) > 14:
+                await ctx.author.send('Nickname too long')
             else:
                 await member.edit(nick=msg.content)
                 break
     await log(str(ctx.author) + " Changed Nickname to " + msg.content)
     # step 6 Pronoun
-    await ctx.author.send('''Step 5/6 Please select your prefered pronoun by entering the corresponding number
+    await ctx.author.send('''Step 5/6 Please select your preferred pronoun by entering the corresponding number
       1 - he/him
       2 - she/her
       3 - they/them
-    IF your Pronoun is not here please messager committee and we will sort it :)''')
-    while (True):
+    IF your Pronoun is not here please message the committee and we will sort it :)''')
+    while True:
         msg = await client.wait_for('message')
-        if (ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel)):
-            if (msg.content == '1'):
+        if ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel):
+            if msg.content == '1':
                 guild = client.get_guild(752532623678505011)
                 member = guild.get_member(ctx.author.id)
                 var = discord.utils.get(member.guild.roles, name="He/Him")
                 await member.add_roles(var)
                 break
-            elif (msg.content == '2'):
+            elif msg.content == '2':
                 guild = client.get_guild(752532623678505011)
                 member = guild.get_member(ctx.author.id)
                 var = discord.utils.get(member.guild.roles, name="She/Her")
                 await member.add_roles(var)
                 break
-            elif (msg.content == '3'):
+            elif msg.content == '3':
                 guild = client.get_guild(752532623678505011)
                 member = guild.get_member(ctx.author.id)
                 var = discord.utils.get(member.guild.roles, name="They/Them")
@@ -385,46 +392,46 @@ All Channels will have pinned messages explaining what they are there for and ho
       5 - placement
       6 - post grad
       7 - alumni''')
-    while (True):
+    while True:
         msg = await client.wait_for('message')
-        if (ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel)):
-            if (msg.content == '1'):
+        if ctx.author == msg.author and isinstance(msg.channel, discord.channel.DMChannel):
+            if msg.content == '1':
                 guild = client.get_guild(752532623678505011)
                 member = guild.get_member(ctx.author.id)
                 var = discord.utils.get(member.guild.roles, name="Stage 1")
                 await member.add_roles(var)
                 break
-            elif (msg.content == '2'):
+            elif msg.content == '2':
                 guild = client.get_guild(752532623678505011)
                 member = guild.get_member(ctx.author.id)
                 var = discord.utils.get(member.guild.roles, name="Stage 2")
                 await member.add_roles(var)
                 break
-            elif (msg.content == '3'):
+            elif msg.content == '3':
                 guild = client.get_guild(752532623678505011)
                 member = guild.get_member(ctx.author.id)
                 var = discord.utils.get(member.guild.roles, name="Stage 3")
                 await member.add_roles(var)
                 break
-            elif (msg.content == '4'):
+            elif msg.content == '4':
                 guild = client.get_guild(752532623678505011)
                 member = guild.get_member(ctx.author.id)
                 var = discord.utils.get(member.guild.roles, name="Stage 4")
                 await member.add_roles(var)
                 break
-            elif (msg.content == '5'):
+            elif msg.content == '5':
                 guild = client.get_guild(752532623678505011)
                 member = guild.get_member(ctx.author.id)
                 var = discord.utils.get(member.guild.roles, name="Placement")
                 await member.add_roles(var)
                 break
-            elif (msg.content == '6'):
+            elif msg.content == '6':
                 guild = client.get_guild(752532623678505011)
                 member = guild.get_member(ctx.author.id)
                 var = discord.utils.get(member.guild.roles, name="Post Grad")
                 await member.add_roles(var)
                 break
-            elif (msg.content == '7'):
+            elif msg.content == '7':
                 await ctx.author.send('Sorry only ppl at the uni are allowed full access to the server')
                 await log(str(ctx.author) + " Hit Alumni Trap lol")
 
@@ -441,9 +448,10 @@ All Channels will have pinned messages explaining what they are there for and ho
     await ctx.author.send(
         'Cant wait to speak to you soon!!! and hopefully see you at some of our events!!!\n Cheers Jonno')
     c = client.get_channel(752547001794822255)
-    if (ctx.message.channel == 757937625280806923):
+    if ctx.message.channel == 757937625280806923:
         await c.send(
-            f"{ctx.message.author.mention}👋 Welcome to the NUCATS Server!!! \nCheck the updates channel for the latest news on our even\nAny questions feel free to reach out to committee")
+            f"{ctx.message.author.mention}👋 Welcome to the NUCATS Server!!! \nCheck the updates channel for the "
+            f"latest news on our even\nAny questions feel free to reach out to committee")
 
 
 @client.command()
